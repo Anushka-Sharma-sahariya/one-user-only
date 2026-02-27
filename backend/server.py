@@ -107,7 +107,7 @@ async def compress_prd(request: CompressRequest):
     """Compress PRD using Claude API"""
     try:
         # Server-side validation
-        if not all([request.problem, request.coreUser, request.change, request.metrics, request.outOfScope]):
+        if not all([request.problem, request.coreUser, request.solution, request.change, request.metrics, request.outOfScope]):
             raise HTTPException(status_code=400, detail="All fields are required")
         
         # Check for multiple users in Core User field
