@@ -188,7 +188,7 @@ function App() {
             disabled={loading}
             data-testid="submit-button"
           >
-            {loading ? "Cutting the fluff..." : "Compress"}
+            {loading ? "Evaluating..." : "Evaluate My Thinking"}
           </button>
         </form>
 
