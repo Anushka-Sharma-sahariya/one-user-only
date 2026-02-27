@@ -110,7 +110,7 @@ function App() {
           data-testid="cta-button"
           onClick={() => document.getElementById('form-section').scrollIntoView({ behavior: 'smooth' })}
         >
-          Compress it
+          Test your thinking
         </button>
       </section>
 
