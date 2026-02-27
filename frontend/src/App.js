@@ -35,6 +35,7 @@ function App() {
     // Check for empty fields
     if (!formData.problem.trim()) newErrors.problem = "Required";
     if (!formData.coreUser.trim()) newErrors.coreUser = "Required";
+    if (!formData.solution.trim()) newErrors.solution = "Required";
     if (!formData.change.trim()) newErrors.change = "Required";
     if (!formData.metrics.trim()) newErrors.metrics = "Required";
     if (!formData.outOfScope.trim()) newErrors.outOfScope = "Required";
