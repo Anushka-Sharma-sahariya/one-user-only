@@ -129,7 +129,7 @@ async def compress_prd(request: CompressRequest):
         ).with_model("anthropic", "claude-sonnet-4-5-20250929")
         
         # Create prompt
-        prompt = f"""Write a PRD using the following inputs:
+        prompt = f"""Evaluate this product thinking submission:
 
 Problem: {request.problem}
 Core User: {request.coreUser}
@@ -137,47 +137,65 @@ Expected Change: {request.change}
 Success Metrics: {request.metrics}
 Out of Scope: {request.outOfScope}
 
-STRICT SCORING RULES:
-- Default overall clarity score: 5-7 for average PRDs
-- Scores above 8 are RARE and only given when ALL of these are met:
-  * Persona is extremely specific (not just "product managers" but "first-time PMs at Series A startups with 10-50 employees")
-  * ALL metrics include baseline AND target values
-  * Zero vague modifiers present
-  * Meaningful impact (NOT small improvements like 3-5%)
-- Penalize heavily:
-  * Vague words: "slightly," "intuitive," "seamless," "optimize," "improve," "enhance," "streamline," "better," "robust" unless tied to measurable outcomes
-  * Low-impact metrics (3-5% changes without strong justification)
-  * Safe or conservative targets
-  * Hedging language
+EVALUATION RULES:
+First, check structural constraints:
+- Exactly ONE core user (reject if multiple)
+- Maximum THREE metrics (reject if more)
+- All metrics MUST have numeric baselines AND numeric targets (reject if missing)
+- No vague modifiers without measurable outcomes
 
-TONE REQUIREMENTS - BE DIRECT:
-- No polite consulting language
-- Direct but calm
-- Use sharp phrasing:
-  * "This is vague." (NOT "Consider clarifying")
-  * "You're hedging." (NOT "This could be stronger")
-  * "This metric is safe, not ambitious." (NOT "You might want to increase the target")
-  * "Define this or remove it." (NOT "It would help to add more detail")
-- Enforce discipline, not encouragement
+If any structural rule is violated, return:
+{{
+  "status": "rejected",
+  "rejection_reason": "clear, direct explanation"
+}}
+
+If accepted, evaluate across 6 dimensions (scale 0-10):
+1. Problem clarity: Is the problem measurable? Does it show friction and causality?
+2. Persona precision: Is the user highly specific? Or generic?
+3. Solution discipline: Does solution directly address problem without overreach?
+4. Metric integrity: Baselines + targets present? Meaningful impact (not 3-5%)?
+5. Scope awareness: Is scope explicitly constrained? Trade-offs clear?
+6. Ambition level: Bold but realistic? Or safe and timid?
+
+SCORING GUIDELINES:
+- Default overall score: 5-7 for average submissions
+- Above 8: RARE, requires exceptional discipline across all dimensions
+- Below 5: Vague problem, multiple personas, disconnected solution, vanity metrics, safe ambition
+
+ASSIGN MATURITY LEVEL:
+- Level 1 – Idea Thinker: Describes goals, not problems. Vague users. No real metrics.
+- Level 2 – Feature Thinker: Defines a feature but weak causal reasoning and safe metrics.
+- Level 3 – Metric-Aware PM: Has numbers but weak ambition or fuzzy persona.
+- Level 4 – Outcome-Oriented PM: Clear causality, measurable impact, disciplined scope.
+- Level 5 – Strategic Operator: Strong causal chain, bold but realistic ambition, tight persona, clear trade-offs.
 
 Return JSON in this exact format:
 {{
-  "status": "accepted" or "rejected",
-  "prd": "the compressed PRD with sections: Problem, Core User, Solution, Success Metrics, Out of Scope",
-  "word_count": number,
-  "clarity_score": {{
-    "overall": number between 0-10 (DEFAULT 5-7, only exceed 8 for exceptional PRDs meeting ALL criteria above),
-    "persona_specificity": number between 0-10,
-    "metric_strength": number between 0-10,
-    "problem_sharpness": number between 0-10,
-    "bloat_penalty": number between 0-10
+  "status": "accepted",
+  "maturity_level": "Level 1 | Level 2 | Level 3 | Level 4 | Level 5",
+  "overall_score": number (1-10),
+  "dimension_scores": {{
+    "problem_clarity": number,
+    "persona_precision": number,
+    "solution_discipline": number,
+    "metric_integrity": number,
+    "scope_awareness": number,
+    "ambition_level": number
   }},
-  "bloat_words_detected": ["list", "of", "buzzwords"],
-  "callouts": ["Direct, sharp critiques using required tone. No polite language."],
-  "rejection_reason": "only if status is rejected"
+  "diagnosis": [
+    "short, sharp statement about strengths",
+    "short, sharp statement about weaknesses"
+  ],
+  "discipline_gaps": [
+    "specific weakness 1",
+    "specific weakness 2 (if any)"
+  ],
+  "prd": "Rewritten disciplined PRD under 300 words. Use headings: Problem, Core User, Solution, Expected Change, Success Metrics, Out of Scope. End with: This is your disciplined version.",
+  "word_count": number
 }}
 
-If the input is too vague, unfocused, or impossible to compress into a disciplined PRD, set status to "rejected" and explain why directly."""
+TONE: Calm, direct. No consultant phrasing. No emojis. No praise inflation. No motivational language."""
         
         user_message = UserMessage(text=prompt)
         response = await chat.send_message(user_message)
