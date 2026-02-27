@@ -206,65 +206,81 @@ function App() {
 
         {result && result.status === 'accepted' && (
           <div className="result-container" data-testid="result-container">
+            {/* Maturity Level Banner */}
+            <div className="maturity-banner" data-testid="maturity-banner">
+              <div className="maturity-level" data-testid="maturity-level">
+                {result.maturity_level}
+              </div>
+              <div className="overall-score" data-testid="overall-score">
+                {result.overall_score?.toFixed(1)}/10
+              </div>
+            </div>
+
+            {/* Diagnosis */}
+            {result.diagnosis && result.diagnosis.length > 0 && (
+              <div className="diagnosis-section" data-testid="diagnosis-section">
+                <h3>Diagnosis</h3>
+                <ul>
+                  {result.diagnosis.map((item, idx) => (
+                    <li key={idx} data-testid={`diagnosis-${idx}`}>{item}</li>
+                  ))}
+                </ul>
+              </div>
+            )}
+
+            {/* Dimension Scores */}
+            {result.dimension_scores && (
+              <div className="dimension-scores" data-testid="dimension-scores">
+                <h3>Dimension Scores</h3>
+                <div className="score-grid">
+                  <div className="score-item" data-testid="problem-clarity-score">
+                    <span className="score-label">Problem Clarity</span>
+                    <span className="score-value">{result.dimension_scores.problem_clarity?.toFixed(1)}</span>
+                  </div>
+                  <div className="score-item" data-testid="persona-precision-score">
+                    <span className="score-label">Persona Precision</span>
+                    <span className="score-value">{result.dimension_scores.persona_precision?.toFixed(1)}</span>
+                  </div>
+                  <div className="score-item" data-testid="solution-discipline-score">
+                    <span className="score-label">Solution Discipline</span>
+                    <span className="score-value">{result.dimension_scores.solution_discipline?.toFixed(1)}</span>
+                  </div>
+                  <div className="score-item" data-testid="metric-integrity-score">
+                    <span className="score-label">Metric Integrity</span>
+                    <span className="score-value">{result.dimension_scores.metric_integrity?.toFixed(1)}</span>
+                  </div>
+                  <div className="score-item" data-testid="scope-awareness-score">
+                    <span className="score-label">Scope Awareness</span>
+                    <span className="score-value">{result.dimension_scores.scope_awareness?.toFixed(1)}</span>
+                  </div>
+                  <div className="score-item" data-testid="ambition-level-score">
+                    <span className="score-label">Ambition Level</span>
+                    <span className="score-value">{result.dimension_scores.ambition_level?.toFixed(1)}</span>
+                  </div>
+                </div>
+              </div>
+            )}
+
+            {/* Discipline Gaps */}
+            {result.discipline_gaps && result.discipline_gaps.length > 0 && (
+              <div className="discipline-gaps" data-testid="discipline-gaps">
+                <h3>Discipline Gaps</h3>
+                <ul>
+                  {result.discipline_gaps.map((gap, idx) => (
+                    <li key={idx} data-testid={`gap-${idx}`}>{gap}</li>
+                  ))}
+                </ul>
+              </div>
+            )}
+
+            {/* Disciplined PRD */}
             <div className="result-card" data-testid="result-card">
+              <div className="prd-header">
+                <h3>Your Disciplined PRD</h3>
+                <span className="word-count" data-testid="word-count">Words: {result.word_count}</span>
+              </div>
               <div className="prd-content" data-testid="prd-content">
                 {renderPRD(result.prd)}
-              </div>
-              
-              <div className="result-meta" data-testid="result-meta">
-                <div className="word-count" data-testid="word-count">
-                  Words: {result.word_count}
-                </div>
-                
-                {result.clarity_score && (
-                  <div className="clarity-scores" data-testid="clarity-scores">
-                    <h3>Clarity Score</h3>
-                    <div className="score-grid">
-                      <div className="score-item" data-testid="overall-score">
-                        <span className="score-label">Overall</span>
-                        <span className="score-value">{result.clarity_score.overall.toFixed(1)}</span>
-                      </div>
-                      <div className="score-item" data-testid="persona-score">
-                        <span className="score-label">Persona Specificity</span>
-                        <span className="score-value">{result.clarity_score.persona_specificity.toFixed(1)}</span>
-                      </div>
-                      <div className="score-item" data-testid="metric-score">
-                        <span className="score-label">Metric Strength</span>
-                        <span className="score-value">{result.clarity_score.metric_strength.toFixed(1)}</span>
-                      </div>
-                      <div className="score-item" data-testid="problem-score">
-                        <span className="score-label">Problem Sharpness</span>
-                        <span className="score-value">{result.clarity_score.problem_sharpness.toFixed(1)}</span>
-                      </div>
-                      <div className="score-item" data-testid="bloat-penalty-score">
-                        <span className="score-label">Bloat Penalty</span>
-                        <span className="score-value">{result.clarity_score.bloat_penalty.toFixed(1)}</span>
-                      </div>
-                    </div>
-                  </div>
-                )}
-                
-                {result.bloat_words_detected && result.bloat_words_detected.length > 0 && (
-                  <div className="bloat-words" data-testid="bloat-words">
-                    <h3>Bloat Words Detected</h3>
-                    <div className="bloat-list">
-                      {result.bloat_words_detected.map((word, idx) => (
-                        <span key={idx} className="bloat-word" data-testid={`bloat-word-${idx}`}>{word}</span>
-                      ))}
-                    </div>
-                  </div>
-                )}
-                
-                {result.callouts && result.callouts.length > 0 && (
-                  <div className="callouts" data-testid="callouts">
-                    <h3>Callouts</h3>
-                    <ul>
-                      {result.callouts.map((callout, idx) => (
-                        <li key={idx} data-testid={`callout-${idx}`}>{callout}</li>
-                      ))}
-                    </ul>
-                  </div>
-                )}
               </div>
             </div>
             
