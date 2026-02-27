@@ -156,6 +156,75 @@ textarea:focus {
   margin-top: 4rem;
 }
 
+.maturity-banner {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 2rem;
+  background: #000000;
+  color: #FFFFFF;
+  margin-bottom: 2rem;
+}
+
+.maturity-level {
+  font-family: 'Inter', sans-serif;
+  font-weight: 600;
+  font-size: 1.5rem;
+  letter-spacing: -0.01em;
+}
+
+.overall-score {
+  font-family: 'Inter', sans-serif;
+  font-weight: 700;
+  font-size: 2.5rem;
+  letter-spacing: -0.02em;
+}
+
+.diagnosis-section,
+.discipline-gaps {
+  background: #FFFFFF;
+  border: 1px solid #000000;
+  padding: 2rem;
+  margin-bottom: 2rem;
+}
+
+.diagnosis-section h3,
+.discipline-gaps h3,
+.dimension-scores h3 {
+  font-family: 'Inter', sans-serif;
+  font-weight: 600;
+  font-size: 0.875rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  margin-bottom: 1rem;
+  color: #000000;
+}
+
+.diagnosis-section ul,
+.discipline-gaps ul {
+  list-style-position: inside;
+  padding-left: 0;
+}
+
+.diagnosis-section li,
+.discipline-gaps li {
+  font-family: 'Inter', sans-serif;
+  font-size: 0.9375rem;
+  line-height: 1.8;
+  color: #000000;
+  margin-bottom: 0.75rem;
+}
+
+.discipline-gaps li {
+  color: #B00020;
+}
+
+.dimension-scores {
+  background: #F5F5F5;
+  padding: 2rem;
+  margin-bottom: 2rem;
+}
+
 .result-card {
   background: #FFFFFF;
   border: 1px solid #000000;
@@ -163,10 +232,27 @@ textarea:focus {
   margin-bottom: 2rem;
 }
 
+.prd-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 2rem;
+  padding-bottom: 1rem;
+  border-bottom: 1px solid #E0E0E0;
+}
+
+.prd-header h3 {
+  font-family: 'Inter', sans-serif;
+  font-weight: 600;
+  font-size: 1rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: #000000;
+}
+
 .prd-content {
   font-family: 'Inter', sans-serif;
   line-height: 1.8;
-  margin-bottom: 3rem;
   white-space: pre-wrap;
 }
 
@@ -179,30 +265,12 @@ textarea:focus {
   text-decoration: line-through;
 }
 
-.result-meta {
-  border-top: 1px solid #E0E0E0;
-  padding-top: 2rem;
-}
-
 .word-count {
   font-family: 'Inter', sans-serif;
   font-weight: 600;
   font-size: 0.875rem;
   letter-spacing: 0.05em;
-  margin-bottom: 2rem;
-  color: #000000;
-}
-
-.clarity-scores h3,
-.bloat-words h3,
-.callouts h3 {
-  font-family: 'Inter', sans-serif;
-  font-weight: 600;
-  font-size: 0.875rem;
-  text-transform: uppercase;
-  letter-spacing: 0.05em;
-  margin-bottom: 1rem;
-  color: #000000;
+  color: #666666;
 }
 
 .score-grid {
