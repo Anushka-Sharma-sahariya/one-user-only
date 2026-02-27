@@ -134,13 +134,19 @@ Expected Change: {request.change}
 Success Metrics: {request.metrics}
 Out of Scope: {request.outOfScope}
 
+STRICT SCORING GUIDELINES:
+- Default overall clarity score should NOT exceed 7.0 unless the PRD is highly specific, strongly quantified, and completely free of vague language
+- Penalize heavily for vague modifiers: "slightly," "intuitive," "efficient," "improve," "optimize," "enhance," "better," "streamline," "robust," "leverage," "synergy" unless backed by measurable change
+- Overall score of 8+ should be RARE and only for exceptional PRDs with zero bloat
+- Be harsh and disciplined with scoring
+
 Return JSON in this exact format:
 {{
   "status": "accepted" or "rejected",
   "prd": "the compressed PRD with sections: Problem, Core User, Solution, Success Metrics, Out of Scope",
   "word_count": number,
   "clarity_score": {{
-    "overall": number between 0-10,
+    "overall": number between 0-10 (DEFAULT MAX 7.0, only exceed for exceptional PRDs),
     "persona_specificity": number between 0-10,
     "metric_strength": number between 0-10,
     "problem_sharpness": number between 0-10,
