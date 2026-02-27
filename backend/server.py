@@ -50,21 +50,24 @@ class CompressRequest(BaseModel):
     outOfScope: str
 
 
-class ClarityScore(BaseModel):
-    overall: float
-    persona_specificity: float
-    metric_strength: float
-    problem_sharpness: float
-    bloat_penalty: float
+class DimensionScores(BaseModel):
+    problem_clarity: float
+    persona_precision: float
+    solution_discipline: float
+    metric_integrity: float
+    scope_awareness: float
+    ambition_level: float
 
 
 class CompressResponse(BaseModel):
     status: str
+    maturity_level: Optional[str] = None
+    overall_score: Optional[float] = None
+    dimension_scores: Optional[DimensionScores] = None
+    diagnosis: Optional[List[str]] = None
+    discipline_gaps: Optional[List[str]] = None
     prd: Optional[str] = None
     word_count: Optional[int] = None
-    clarity_score: Optional[ClarityScore] = None
-    bloat_words_detected: Optional[List[str]] = None
-    callouts: Optional[List[str]] = None
     rejection_reason: Optional[str] = None
 
 
