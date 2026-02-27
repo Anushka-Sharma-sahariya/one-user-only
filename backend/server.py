@@ -215,16 +215,18 @@ TONE: Calm, direct. No consultant phrasing. No emojis. No praise inflation. No m
             if result.get('status') == 'rejected':
                 return CompressResponse(
                     status='rejected',
-                    rejection_reason=result.get('rejection_reason', 'PRD could not be compressed')
+                    rejection_reason=result.get('rejection_reason', 'Submission does not meet structural requirements')
                 )
             
             return CompressResponse(
                 status='accepted',
+                maturity_level=result.get('maturity_level', ''),
+                overall_score=result.get('overall_score', 0),
+                dimension_scores=DimensionScores(**result.get('dimension_scores', {})),
+                diagnosis=result.get('diagnosis', []),
+                discipline_gaps=result.get('discipline_gaps', []),
                 prd=result.get('prd', ''),
-                word_count=result.get('word_count', 0),
-                clarity_score=ClarityScore(**result.get('clarity_score', {})),
-                bloat_words_detected=result.get('bloat_words_detected', []),
-                callouts=result.get('callouts', [])
+                word_count=result.get('word_count', 0)
             )
             
         except json.JSONDecodeError as e:
