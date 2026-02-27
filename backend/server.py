@@ -134,6 +134,7 @@ async def compress_prd(request: CompressRequest):
 
 Problem: {request.problem}
 Core User: {request.coreUser}
+Solution: {request.solution}
 Expected Change: {request.change}
 Success Metrics: {request.metrics}
 Out of Scope: {request.outOfScope}
