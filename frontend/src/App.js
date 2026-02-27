@@ -146,6 +146,19 @@ function App() {
           </div>
 
           <div className="form-group">
+            <label htmlFor="solution" data-testid="solution-label">Solution</label>
+            <textarea
+              id="solution"
+              name="solution"
+              value={formData.solution}
+              onChange={handleChange}
+              rows="4"
+              data-testid="solution-input"
+            />
+            {errors.solution && <span className="error-text" data-testid="solution-error">{errors.solution}</span>}
+          </div>
+
+          <div className="form-group">
             <label htmlFor="change" data-testid="expected-change-label">Expected Change</label>
             <textarea
               id="change"
