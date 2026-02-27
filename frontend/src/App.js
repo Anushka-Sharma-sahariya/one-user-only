@@ -9,6 +9,7 @@ function App() {
   const [formData, setFormData] = useState({
     problem: "",
     coreUser: "",
+    solution: "",
     change: "",
     metrics: "",
     outOfScope: ""
