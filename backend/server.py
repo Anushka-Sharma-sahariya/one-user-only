@@ -134,11 +134,28 @@ Expected Change: {request.change}
 Success Metrics: {request.metrics}
 Out of Scope: {request.outOfScope}
 
-STRICT SCORING GUIDELINES:
-- Default overall clarity score should NOT exceed 7.0 unless the PRD is highly specific, strongly quantified, and completely free of vague language
-- Penalize heavily for vague modifiers: "slightly," "intuitive," "efficient," "improve," "optimize," "enhance," "better," "streamline," "robust," "leverage," "synergy" unless backed by measurable change
-- Overall score of 8+ should be RARE and only for exceptional PRDs with zero bloat
-- Be harsh and disciplined with scoring
+STRICT SCORING RULES:
+- Default overall clarity score: 5-7 for average PRDs
+- Scores above 8 are RARE and only given when ALL of these are met:
+  * Persona is extremely specific (not just "product managers" but "first-time PMs at Series A startups with 10-50 employees")
+  * ALL metrics include baseline AND target values
+  * Zero vague modifiers present
+  * Meaningful impact (NOT small improvements like 3-5%)
+- Penalize heavily:
+  * Vague words: "slightly," "intuitive," "seamless," "optimize," "improve," "enhance," "streamline," "better," "robust" unless tied to measurable outcomes
+  * Low-impact metrics (3-5% changes without strong justification)
+  * Safe or conservative targets
+  * Hedging language
+
+TONE REQUIREMENTS - BE DIRECT:
+- No polite consulting language
+- Direct but calm
+- Use sharp phrasing:
+  * "This is vague." (NOT "Consider clarifying")
+  * "You're hedging." (NOT "This could be stronger")
+  * "This metric is safe, not ambitious." (NOT "You might want to increase the target")
+  * "Define this or remove it." (NOT "It would help to add more detail")
+- Enforce discipline, not encouragement
 
 Return JSON in this exact format:
 {{
@@ -146,18 +163,18 @@ Return JSON in this exact format:
   "prd": "the compressed PRD with sections: Problem, Core User, Solution, Success Metrics, Out of Scope",
   "word_count": number,
   "clarity_score": {{
-    "overall": number between 0-10 (DEFAULT MAX 7.0, only exceed for exceptional PRDs),
+    "overall": number between 0-10 (DEFAULT 5-7, only exceed 8 for exceptional PRDs meeting ALL criteria above),
     "persona_specificity": number between 0-10,
     "metric_strength": number between 0-10,
     "problem_sharpness": number between 0-10,
     "bloat_penalty": number between 0-10
   }},
   "bloat_words_detected": ["list", "of", "buzzwords"],
-  "callouts": ["list of suggestions or critiques"],
+  "callouts": ["Direct, sharp critiques using required tone. No polite language."],
   "rejection_reason": "only if status is rejected"
 }}
 
-If the input is too vague, unfocused, or impossible to compress into a disciplined PRD, set status to "rejected" and explain why."""
+If the input is too vague, unfocused, or impossible to compress into a disciplined PRD, set status to "rejected" and explain why directly."""
         
         user_message = UserMessage(text=prompt)
         response = await chat.send_message(user_message)
