@@ -45,6 +45,7 @@ class StatusCheckCreate(BaseModel):
 class CompressRequest(BaseModel):
     problem: str
     coreUser: str
+    solution: str
     change: str
     metrics: str
     outOfScope: str
