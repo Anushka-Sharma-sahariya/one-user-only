@@ -87,12 +87,9 @@ Below 5 means vague framing, disconnected solutions, or vanity metrics.
 
 ---
 
-## Output Contract
+<img width="2940" height="1912" alt="image" src="https://github.com/user-attachments/assets/a387d31a-91b9-416d-9eae-b53ce680b2cd" /><img width="2940" height="1912" alt="image" src="https://github.com/user-attachments/assets/ba444476-706c-46b6-8a5e-f5ec97347eac" />
 
-If structural rules are violated:
+<img width="2940" height="1912" alt="image" src="https://github.com/user-attachments/assets/bce8cc35-c3a4-4f0c-983f-5f150c174233" />
+<img width="2940" height="1912" alt="image" src="https://github.com/user-attachments/assets/4498fa1c-6ca8-4f81-8b30-e59cb3e774c3" />
 
-```json
-{
-  "status": "rejected",
-  "reason": "clear explanation"
-}
+
