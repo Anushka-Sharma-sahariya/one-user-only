@@ -122,7 +122,7 @@ async def compress_prd(request: CompressRequest):
         chat = LlmChat(
             api_key=api_key,
             session_id=str(uuid.uuid4()),
-            system_message="You are an opinionated product coach helping early PMs write disciplined PRDs. Enforce max 300 words. Only one core user. Maximum 3 measurable metrics with numbers. Remove vague language and buzzwords. Strike through buzzwords using markdown (~~word~~). Return structured JSON only."
+            system_message="You are an opinionated product coach helping early PMs write disciplined PRDs. Enforce max 300 words. Only one core user. Maximum 3 measurable metrics with numbers. Remove vague language and buzzwords. Strike through buzzwords using markdown (~~word~~). SCORING RULES: Default overall clarity score should NOT exceed 7 unless the PRD is highly specific, strongly quantified, and free of vague language. Penalize vague modifiers such as 'slightly,' 'intuitive,' 'efficient,' 'improve,' 'optimize,' 'enhance,' 'better,' 'streamline' unless backed by measurable change. Be harsh on clarity scoring. Return structured JSON only."
         ).with_model("anthropic", "claude-sonnet-4-5-20250929")
         
         # Create prompt
