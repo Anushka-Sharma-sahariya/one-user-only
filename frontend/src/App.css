@@ -341,6 +341,13 @@ textarea:focus {
   padding: 2rem 0;
 }
 
+/* Hide Made with Emergent badge */
+[data-badge="emergent"],
+a[href*="emergent.sh"][style*="position: fixed"] {
+  display: none !important;
+  visibility: hidden !important;
+}
+
 /* Responsive */
 @media (max-width: 768px) {
   .hero-title {
